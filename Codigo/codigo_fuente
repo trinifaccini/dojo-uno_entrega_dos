@@ -1,0 +1,163 @@
+/* DOJO UNO */
+
+#define PIN_LED_ROJO_1 9
+#define PIN_LED_ROJO_2 8
+#define PIN_LED_AMARILLO_1 11
+#define PIN_LED_AMARILLO_2 10
+#define PIN_LED_VERDE_1 13
+#define PIN_LED_VERDE_2 12
+#define PIN_BUZZER 5
+
+int tiempo_buzzer_rojo;
+int tiempo_buzzer_amarillo;
+
+int intensidad_fuerte;
+int intensidad_suave;
+
+int loop_led_rojo;
+int loop_led_amarillo;
+
+
+void setup()
+{
+  pinMode(PIN_LED_ROJO_1, OUTPUT);   
+  pinMode(PIN_LED_AMARILLO_1, OUTPUT);  
+  pinMode(PIN_LED_VERDE_1, OUTPUT);
+  pinMode(PIN_LED_ROJO_2, OUTPUT);   
+  pinMode(PIN_LED_AMARILLO_2, OUTPUT);  
+  pinMode(PIN_LED_VERDE_2, OUTPUT);  
+  pinMode(PIN_BUZZER, OUTPUT);
+  
+  intensidad_fuerte = 220;  
+  intensidad_suave = 100;
+  tiempo_buzzer_rojo = 1000/4; //2 veces x segundo
+  tiempo_buzzer_amarillo = 1000/2; // 1 vez x segundo
+  loop_led_rojo = 5*2; // veces totales que suena el buzzer en la luz roja
+  loop_led_amarillo = 3;  // veces totales que suena el buzzer en la luz amarilla
+  
+  Serial.begin(9600); 
+}
+
+// ESTA FUNCION VA A DURAR LO QUE VALGA LA VARIABLE tiempo
+void sonarBuzzer(int pin, int tiempo, int intensidad)
+{
+  Serial.println("Suena buzzer");
+  tone(pin, intensidad);
+  delay(tiempo);
+}
+
+// ESTA FUNCION VA A DURAR LO QUE VALGA LA VARIABLE tiempo
+void silenciarBuzzer(int pin, int tiempo)
+{
+  Serial.println("Se silencia el buzzer");
+  noTone(pin);
+  delay(tiempo);
+}
+
+// ESTA FUNCION VA A DURAR LO QUE duren las funciones: 
+// sonarBuzzer() + silenciarBuzzer() * veces
+void sonarSilenciarBuzzer(int buzzer, int tiempo, int intensidad, int veces)
+{
+  int contador = 0;
+  
+  while (contador < veces)
+  {
+    sonarBuzzer(buzzer, tiempo, intensidad);
+    silenciarBuzzer(buzzer, tiempo);
+    contador = contador + 1;
+  }
+}
+
+
+void prenderLed(int led)
+{
+  digitalWrite(led, HIGH);  
+}
+
+void apagarLed(int led)
+{
+  digitalWrite(led, LOW);  
+}
+
+
+void titilar_leds(int pin_1, int pin_2, int veces)
+{
+
+  int contador = 0;
+  
+  apagarLed(pin_1);    
+  apagarLed(pin_2);
+  delay(200);
+  
+  while (contador < veces)
+  {
+    prenderLed(pin_1);
+    prenderLed(pin_2);
+    delay(300);
+    apagarLed(pin_1);    
+    apagarLed(pin_2);
+    delay(300);
+    contador = contador + 1;
+  }
+  
+}
+
+
+void loop()
+{
+  
+  Serial.println("Encender luz verde x 5 segundos");
+  prenderLed(PIN_LED_VERDE_1);
+  prenderLed(PIN_LED_VERDE_2);
+  delay(5000);
+  
+  Serial.println("Pasando a amarillo - Titila luz verde 3 veces");
+  titilar_leds(PIN_LED_VERDE_1,PIN_LED_VERDE_2, 3);  
+
+  Serial.println("Apagar luz verde");
+  apagarLed(PIN_LED_VERDE_1);
+  apagarLed(PIN_LED_VERDE_2); 
+  
+  Serial.println("Encender luz amarilla x 3 segundos");
+  prenderLed(PIN_LED_AMARILLO_1);
+  prenderLed(PIN_LED_AMARILLO_2);
+  
+  // ESTA FUNCION DURARA 3 SEGUNDOS - ACTUA DE DELAY
+  sonarSilenciarBuzzer(PIN_BUZZER, tiempo_buzzer_amarillo, intensidad_suave, loop_led_amarillo);
+  
+  Serial.println("Pasando a rojo - Titila luz amarilla 3 veces");
+  titilar_leds(PIN_LED_AMARILLO_1,PIN_LED_AMARILLO_2, 3);  
+  
+  Serial.println("Apagar luz amarilla");
+  apagarLed(PIN_LED_AMARILLO_1);
+  apagarLed(PIN_LED_AMARILLO_2); 
+  
+  Serial.println("Encender luz roja x 5 segundos");
+  prenderLed(PIN_LED_ROJO_1);
+  prenderLed(PIN_LED_ROJO_2);
+  
+  // ESTA FUNCION DURARA 5 SEGUNDOS - ACTUA DE DELAY
+  sonarSilenciarBuzzer(PIN_BUZZER, tiempo_buzzer_rojo, intensidad_fuerte, loop_led_rojo);
+  
+  Serial.println("Pasndo a amarillo - Titila luz roja 3 veces");
+  titilar_leds(PIN_LED_ROJO_1,PIN_LED_ROJO_2, 3);
+  
+  Serial.println("Apagar luz roja");
+  apagarLed(PIN_LED_ROJO_1);
+  apagarLed(PIN_LED_ROJO_2); 
+  
+  Serial.println("Encender luz amarilla x 3 segundos");
+  prenderLed(PIN_LED_AMARILLO_1);
+  prenderLed(PIN_LED_AMARILLO_2);
+  
+  // ESTA FUNCION DURARA 3 SEGUNDOS - ACTUA DE DELAY
+  sonarSilenciarBuzzer(PIN_BUZZER, tiempo_buzzer_amarillo, intensidad_suave, loop_led_amarillo);
+  
+  Serial.println("Pasando a verde - Titila luz amarilla 3 veces");
+  titilar_leds(PIN_LED_AMARILLO_1,PIN_LED_AMARILLO_2, 3);
+  
+  Serial.println("Apagar luz amarilla");
+  
+  apagarLed(PIN_LED_AMARILLO_1);
+  apagarLed(PIN_LED_AMARILLO_2);
+}
