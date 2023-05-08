@@ -48,8 +48,8 @@ void sonarSilenciarBuzzer(int buzzer, int tiempo, int intensidad, int veces)
 ~~~
 
 ## :robot: Link al proyecto
-- [Tinkercard-Sol Rubinetti]()
-- [Tinkercard-Yamila Sueldo]()
-- [Tinkercard-Adrian Barrientos]()
-- [Tinkercard-Lautaro Torres]()
+- [Tinkercard-Sol Rubinetti](https://www.tinkercad.com/things/kvxo3hxow4a-copy-of-dojo-1-grupo-f-clase-5-rubinetti-sol-1d/editel?sharecode=WGMzLdPwy3q_oZEOTwYz3Y0MRbV6R5n879nWy0bPDZo)
+- [Tinkercard-Yamila Sueldo](https://www.tinkercad.com/things/gyURhZ5qcD9-copy-of-dojo-numero-uno/editel?sharecode=jcljAZWur_vRAy5BWvCNVAHIg4dVq48kvHV_FXRgf9k)
+- [Tinkercard-Adrian Barrientos](https://www.tinkercad.com/things/8mgCsJsUrRK-bodacious-borwo/editel?sharecode=VCCzrcbr8gq2P9JAjRSaL-b77EM1lVzc9hE01hZxCX8)
+- [Tinkercard-Lautaro Torres](https://www.tinkercad.com/things/fSOhHiGeVdJ-lautaro-torresejercicio-dojo-1-2/editel?sharecode=9IKDJYqicsguvunn1_dn7oklyXOUMo9TCehS7j1dNF8)
 - [Tinkercard-Trinidad Faccini](https://www.tinkercad.com/things/4z3mhxVozQW-dojo-uno-grupo-f-entrega-dos/editel?sharecode=w1-w-rqWAS2D5xQI_Y1ASwRkBqFLPSaJrfb6A1xqPrc)
